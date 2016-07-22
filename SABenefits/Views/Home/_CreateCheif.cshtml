@@ -1,0 +1,134 @@
+﻿@model Domain.CustomModels.OrgCustomModel
+<h4> Create Orgnization</h4>
+
+@using (Ajax.BeginForm("_CreateCheif", null, new AjaxOptions { UpdateTargetId = "#cheifdetail", OnComplete = "OrgSubmmit" }, new { @class = "form-horizontal" }))
+{
+<input type="hidden" value="@Model.org.OrgId" name="org.OrgId"/>
+    <div class="form-group">
+        <label class="col-md-2 control-label " for="email">First Name:</label>
+        <div class="col-md-10">
+            @Html.TextBoxFor(m => m.member.Fname, new { @class = "form-control", @placeholder = "First Name" })
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-md-2" for="pwd">Middle Name:</label>
+        <div class="col-md-10">
+            @Html.TextBoxFor(m => m.member.MName, new { @class = "form-control", @placeholder = "Middle Name" })
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-md-2 control-label " for="email">Last Name:</label>
+        <div class="col-md-10">
+            @Html.TextBoxFor(m => m.member.LName, new { @class = "form-control", @placeholder = "First Name" })
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-md-2" for="pwd">Title:</label>
+        <div class="col-md-10">
+            @Html.DropDownListFor(m => m.member.Title, ViewBag.Title as IEnumerable<SelectListItem>, "---Select--", new { @class = "form-control" })
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-md-2" for="pwd">Gender:</label>
+        <div class="col-md-10">
+            @Html.DropDownListFor(m => m.member.Gender, ViewBag.Gender as IEnumerable<SelectListItem>, "---Select--", new { @class = "form-control" })
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-md-2" for="pwd">Country Of Birth:</label>
+        <div class="col-md-10">
+            @Html.DropDownListFor(m => m.member.CountryOfBirth, ViewBag.COB as IEnumerable<SelectListItem>, "---Select--", new { @class = "form-control" })
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-md-2" for="pwd">Date Of Birth:</label>
+        <div class="col-md-10">
+            @Html.TextBoxFor(m => m.member.DOB, new { @class = "form-control", @placeholder = "23/09/1990" })
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-md-2" for="pwd">ID Number:</label>
+        <div class="col-md-10">
+           @Html.TextBoxFor(m => m.member.IDNumber, new { @class = "form-control", @placeholder = "ID Number" })
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-md-2" for="pwd">Passport Number:</label>
+        <div class="col-md-10">
+            @Html.TextBoxFor(m => m.member.PassportNumber, new { @class = "form-control", @placeholder = "Passport Number" })
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-md-2" for="pwd">Home Tel No:</label>
+        <div class="col-md-10">
+            @Html.TextBoxFor(m => m.member.HomeTelNo, new { @class = "form-control", @placeholder = "Home Tel No" })
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-md-2" for="pwd">Work Tel No:</label>
+        <div class="col-md-10">
+            @Html.TextBoxFor(m => m.member.WorkTelNo, new { @class = "form-control", @placeholder = "Work Tel No" })
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-md-2" for="pwd">Cellular Tel No:</label>
+        <div class="col-md-10">
+            @Html.TextBoxFor(m => m.member.CellularNo, new { @class = "form-control", @placeholder = "Cellular Tel No" })
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-md-2" for="pwd">Primary Email:</label>
+        <div class="col-md-10">
+            @Html.TextBoxFor(m => m.member.PrimeryEmail, new { @class = "form-control", @placeholder = "Primary Email" })
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-md-2" for="pwd">Alternative Email:</label>
+        <div class="col-md-10">
+            @Html.TextBoxFor(m => m.member.AlternativeEmail, new { @class = "form-control", @placeholder = "Alternative Email" })
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-md-2" for="pwd">Facebook Id:</label>
+        <div class="col-md-10">
+            @Html.TextBoxFor(m => m.member.FacebookId, new { @class = "form-control", @placeholder = "FaceBook Id" })
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-md-2" for="pwd">Twitter:</label>
+        <div class="col-md-10">
+            @Html.TextBoxFor(m => m.member.Twitter, new { @class = "form-control", @placeholder = "Twitter" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label col-md-2" for="pwd">Residential Address:</label>
+        <div class="col-md-10">
+            @Html.TextAreaFor(m => m.member.ResidentialAdd, new { @class = "form-control", @placeholder = "Residential Address" })
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-md-2" for="pwd">Postal Address:</label>
+        <div class="col-md-10">
+            @Html.TextBoxFor(m => m.member.PostalAdd, new { @class = "form-control", @placeholder = "Postal Address" })
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-md-2" for="pwd">Appointment Date:</label>
+        <div class="col-md-10">
+            @Html.TextBoxFor(m => m.chief.AppointmentDate, new { @class = "form-control", @placeholder = "Appointment Date" })
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-md-2" for="pwd">Termination Date:</label>
+        <div class="col-md-10">
+            @Html.TextBoxFor(m => m.chief.TerminationDate, new { @class = "form-control", @placeholder = "Termination Date" })
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" class="btn btn-default" value="Save and Next" />
+        </div>
+    </div>
+}
+

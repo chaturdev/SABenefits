@@ -1,0 +1,24 @@
+﻿
+@{
+    ViewBag.Title = "PreDashboard";
+}
+
+<h2>Pre Dashboard</h2>
+@using(Html.BeginForm("PreDashboard", "Account")){
+<div class="row">
+
+    <div class="col-md-5">
+
+    </div>
+    <div class="col-md-5">
+        <h2>Hi please select an orgnaization to continue</h2>
+        <p>Orgnaization </p>
+        <p>
+            @Html.DropDownList("Org", ViewBag.OrgMmbr as IEnumerable<SelectListItem>, "---Select--")
+            <input type="hidden" value="@ViewBag.UserEmail" name="UserEmail"/>
+        </p>
+        <p><input type="submit" class="btn btn-default" value="Continue" /></p>
+    </div>
+</div>
+
+}

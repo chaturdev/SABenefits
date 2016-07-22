@@ -1,0 +1,61 @@
+﻿@model Domain.CustomModels.OrgCustomModel
+<h4> Create Orgnization</h4>
+
+@using (Ajax.BeginForm("_CreateOrg", null, new AjaxOptions { UpdateTargetId = "cheifdetail", OnComplete = "LoadNext" }, new { @class = "form-horizontal" }))
+{
+
+    <div class="form-group">
+        <label class="col-md-2 control-label " for="email">Orgnaization Name:</label>
+        <div class="col-md-10">
+            @Html.TextBoxFor(m => m.org.OrgName, new { @class = "form-control", @placeholder = "Orgnaization Name" })
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-md-2" for="pwd">Orgnaization Type:</label>
+        <div class="col-md-10">
+           @Html.DropDownListFor(m => m.org.OrgType, ViewBag.OrgType as IEnumerable<SelectListItem>, "---Select--", new { @class = "form-control" })
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-md-2" for="pwd"> Is Organization registered?</label>
+        <div class="col-md-10">
+         Yes  @Html.RadioButtonFor(m => m.org.IsOrgReg, true, new { @class = "rbRadio" })
+            No  @Html.RadioButtonFor(m => m.org.IsOrgReg, false, new { @class = "rbRadio" })
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-md-2" for="pwd"> Registration Type:</label>
+        <div class="col-md-10">
+            @Html.TextBoxFor(m => m.org.RegType, new { @class = "form-control", @placeholder = "Orgnaization Name" })
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-md-2" for="pwd">Registration Number:</label>
+        <div class="col-md-10">
+            @Html.TextBoxFor(m => m.org.RegNumber, new { @class = "form-control", @placeholder = "Orgnaization Name" })
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-md-2" for="pwd">Legal Name:</label>
+        <div class="col-md-10">
+            @Html.TextBoxFor(m => m.org.OrglegalName, new { @class = "form-control", @placeholder = "Orgnaization Name" })
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-md-2" for="pwd">Established Date:</label>
+        <div class="col-md-10">
+            @Html.TextBoxFor(m => m.org.EstablishedDate, new { @class = "form-control", @placeholder = "Orgnaization Name" })
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-md-2" for="pwd">Inactive Date:</label>
+        <div class="col-md-10">
+            @Html.TextBoxFor(m => m.org.InactiveDate, new { @class = "form-control", @placeholder = "Orgnaization Name" })
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" class="btn btn-default" value="Save and Next" />
+        </div>
+    </div>
+}

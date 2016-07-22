@@ -1,0 +1,400 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="SABenefitsModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Dependents">
+          <Key>
+            <PropertyRef Name="DepId" />
+          </Key>
+          <Property Name="DepId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CitizenType" Type="int" />
+          <Property Name="DetailId" Type="int" />
+          <Property Name="MemberId" Type="int" />
+        </EntityType>
+        <EntityType Name="IndvidualTbl">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Fname" Type="nvarchar" MaxLength="250" />
+          <Property Name="LName" Type="nvarchar" MaxLength="250" />
+          <Property Name="MName" Type="nvarchar" MaxLength="250" />
+          <Property Name="Title" Type="int" />
+          <Property Name="Gender" Type="int" />
+          <Property Name="CountryOfBirth" Type="int" />
+          <Property Name="DOB" Type="date" />
+          <Property Name="IDNumber" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="PassportNumber" Type="nvarchar" MaxLength="250" />
+          <Property Name="HomeTelNo" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="WorkTelNo" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="CellularNo" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="PrimeryEmail" Type="nvarchar" MaxLength="250" />
+          <Property Name="AlternativeEmail" Type="nvarchar" MaxLength="250" />
+          <Property Name="FacebookId" Type="nvarchar" MaxLength="500" />
+          <Property Name="Twitter" Type="nvarchar" MaxLength="500" />
+          <Property Name="ResidentialAdd" Type="nvarchar(max)" />
+          <Property Name="PostalAdd" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="MasterType">
+          <Key>
+            <PropertyRef Name="MatserTypeId" />
+          </Key>
+          <Property Name="MatserTypeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MastrerTypeValue" Type="nvarchar" MaxLength="500" />
+        </EntityType>
+        <EntityType Name="MasterValue">
+          <Key>
+            <PropertyRef Name="MasterValueId" />
+          </Key>
+          <Property Name="MasterValueId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Value" Type="nvarchar" MaxLength="500" />
+          <Property Name="MasterTypeId" Type="int" />
+        </EntityType>
+        <EntityType Name="OrgChiefAdmin">
+          <Key>
+            <PropertyRef Name="ChiefId" />
+          </Key>
+          <Property Name="ChiefId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="OrgId" Type="int" />
+          <Property Name="OrgRole" Type="int" />
+          <Property Name="AppointmentDate" Type="date" />
+          <Property Name="TerminationDate" Type="date" />
+          <Property Name="IndvDetailId" Type="int" />
+        </EntityType>
+        <EntityType Name="OrgTbl">
+          <Key>
+            <PropertyRef Name="OrgId" />
+          </Key>
+          <Property Name="OrgId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="OrgName" Type="nvarchar" MaxLength="500" />
+          <Property Name="OrgType" Type="int" />
+          <Property Name="IsOrgType" Type="int" />
+          <Property Name="IsOrgReg" Type="bit" />
+          <Property Name="RegType" Type="nvarchar" MaxLength="500" />
+          <Property Name="RegNumber" Type="nvarchar" MaxLength="250" />
+          <Property Name="OrglegalName" Type="nvarchar" MaxLength="500" />
+          <Property Name="EstablishedDate" Type="date" />
+          <Property Name="InactiveDate" Type="date" />
+          <Property Name="CreatedBy" Type="int" />
+          <Property Name="CreatedDate" Type="date" />
+          <Property Name="ModifiedBy" Type="int" />
+          <Property Name="ModifiedDate" Type="date" />
+        </EntityType>
+        <Association Name="FK_MasterValue_MasterType">
+          <End Role="MasterType" Type="Self.MasterType" Multiplicity="0..1" />
+          <End Role="MasterValue" Type="Self.MasterValue" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MasterType">
+              <PropertyRef Name="MatserTypeId" />
+            </Principal>
+            <Dependent Role="MasterValue">
+              <PropertyRef Name="MasterTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OrgChiefAdmin_IndvidualTbl">
+          <End Role="IndvidualTbl" Type="Self.IndvidualTbl" Multiplicity="0..1" />
+          <End Role="OrgChiefAdmin" Type="Self.OrgChiefAdmin" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="IndvidualTbl">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="OrgChiefAdmin">
+              <PropertyRef Name="IndvDetailId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OrgChiefAdmin_OrgTbl">
+          <End Role="OrgTbl" Type="Self.OrgTbl" Multiplicity="0..1" />
+          <End Role="OrgChiefAdmin" Type="Self.OrgChiefAdmin" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="OrgTbl">
+              <PropertyRef Name="OrgId" />
+            </Principal>
+            <Dependent Role="OrgChiefAdmin">
+              <PropertyRef Name="OrgId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="SABenefitsModelStoreContainer">
+          <EntitySet Name="Dependents" EntityType="Self.Dependents" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="IndvidualTbl" EntityType="Self.IndvidualTbl" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MasterType" EntityType="Self.MasterType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MasterValue" EntityType="Self.MasterValue" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="OrgChiefAdmin" EntityType="Self.OrgChiefAdmin" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="OrgTbl" EntityType="Self.OrgTbl" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_MasterValue_MasterType" Association="Self.FK_MasterValue_MasterType">
+            <End Role="MasterType" EntitySet="MasterType" />
+            <End Role="MasterValue" EntitySet="MasterValue" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrgChiefAdmin_IndvidualTbl" Association="Self.FK_OrgChiefAdmin_IndvidualTbl">
+            <End Role="IndvidualTbl" EntitySet="IndvidualTbl" />
+            <End Role="OrgChiefAdmin" EntitySet="OrgChiefAdmin" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrgChiefAdmin_OrgTbl" Association="Self.FK_OrgChiefAdmin_OrgTbl">
+            <End Role="OrgTbl" EntitySet="OrgTbl" />
+            <End Role="OrgChiefAdmin" EntitySet="OrgChiefAdmin" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="SABenefitsModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Dependent">
+          <Key>
+            <PropertyRef Name="DepId" />
+          </Key>
+          <Property Name="DepId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CitizenType" Type="Int32" />
+          <Property Name="DetailId" Type="Int32" />
+          <Property Name="MemberId" Type="Int32" />
+        </EntityType>
+        <EntityType Name="IndvidualTbl">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Fname" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="LName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="MName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="Title" Type="Int32" />
+          <Property Name="Gender" Type="Int32" />
+          <Property Name="CountryOfBirth" Type="Int32" />
+          <Property Name="DOB" Type="DateTime" Precision="0" />
+          <Property Name="IDNumber" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="PassportNumber" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="HomeTelNo" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="WorkTelNo" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="CellularNo" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="PrimeryEmail" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="AlternativeEmail" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="FacebookId" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Twitter" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="ResidentialAdd" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PostalAdd" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="OrgChiefAdmins" Relationship="Self.FK_OrgChiefAdmin_IndvidualTbl" FromRole="IndvidualTbl" ToRole="OrgChiefAdmin" />
+        </EntityType>
+        <EntityType Name="MasterType">
+          <Key>
+            <PropertyRef Name="MatserTypeId" />
+          </Key>
+          <Property Name="MatserTypeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MastrerTypeValue" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="MasterValues" Relationship="Self.FK_MasterValue_MasterType" FromRole="MasterType" ToRole="MasterValue" />
+        </EntityType>
+        <EntityType Name="MasterValue">
+          <Key>
+            <PropertyRef Name="MasterValueId" />
+          </Key>
+          <Property Name="MasterValueId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Value" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="MasterTypeId" Type="Int32" />
+          <NavigationProperty Name="MasterType" Relationship="Self.FK_MasterValue_MasterType" FromRole="MasterValue" ToRole="MasterType" />
+        </EntityType>
+        <EntityType Name="OrgChiefAdmin">
+          <Key>
+            <PropertyRef Name="ChiefId" />
+          </Key>
+          <Property Name="ChiefId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="OrgId" Type="Int32" />
+          <Property Name="OrgRole" Type="Int32" />
+          <Property Name="AppointmentDate" Type="DateTime" Precision="0" />
+          <Property Name="TerminationDate" Type="DateTime" Precision="0" />
+          <Property Name="IndvDetailId" Type="Int32" />
+          <NavigationProperty Name="IndvidualTbl" Relationship="Self.FK_OrgChiefAdmin_IndvidualTbl" FromRole="OrgChiefAdmin" ToRole="IndvidualTbl" />
+          <NavigationProperty Name="OrgTbl" Relationship="Self.FK_OrgChiefAdmin_OrgTbl" FromRole="OrgChiefAdmin" ToRole="OrgTbl" />
+        </EntityType>
+        <EntityType Name="OrgTbl">
+          <Key>
+            <PropertyRef Name="OrgId" />
+          </Key>
+          <Property Name="OrgId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="OrgName" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="OrgType" Type="Int32" />
+          <Property Name="IsOrgType" Type="Int32" />
+          <Property Name="IsOrgReg" Type="Boolean" />
+          <Property Name="RegType" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="RegNumber" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="OrglegalName" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="EstablishedDate" Type="DateTime" Precision="0" />
+          <Property Name="InactiveDate" Type="DateTime" Precision="0" />
+          <Property Name="CreatedBy" Type="Int32" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="0" />
+          <Property Name="ModifiedBy" Type="Int32" />
+          <Property Name="ModifiedDate" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="OrgChiefAdmins" Relationship="Self.FK_OrgChiefAdmin_OrgTbl" FromRole="OrgTbl" ToRole="OrgChiefAdmin" />
+        </EntityType>
+        <Association Name="FK_OrgChiefAdmin_IndvidualTbl">
+          <End Role="IndvidualTbl" Type="Self.IndvidualTbl" Multiplicity="0..1" />
+          <End Role="OrgChiefAdmin" Type="Self.OrgChiefAdmin" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="IndvidualTbl">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="OrgChiefAdmin">
+              <PropertyRef Name="IndvDetailId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MasterValue_MasterType">
+          <End Role="MasterType" Type="Self.MasterType" Multiplicity="0..1" />
+          <End Role="MasterValue" Type="Self.MasterValue" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MasterType">
+              <PropertyRef Name="MatserTypeId" />
+            </Principal>
+            <Dependent Role="MasterValue">
+              <PropertyRef Name="MasterTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OrgChiefAdmin_OrgTbl">
+          <End Role="OrgTbl" Type="Self.OrgTbl" Multiplicity="0..1" />
+          <End Role="OrgChiefAdmin" Type="Self.OrgChiefAdmin" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="OrgTbl">
+              <PropertyRef Name="OrgId" />
+            </Principal>
+            <Dependent Role="OrgChiefAdmin">
+              <PropertyRef Name="OrgId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="SABenefitsEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Dependents" EntityType="Self.Dependent" />
+          <EntitySet Name="IndvidualTbls" EntityType="Self.IndvidualTbl" />
+          <EntitySet Name="MasterTypes" EntityType="Self.MasterType" />
+          <EntitySet Name="MasterValues" EntityType="Self.MasterValue" />
+          <EntitySet Name="OrgChiefAdmins" EntityType="Self.OrgChiefAdmin" />
+          <EntitySet Name="OrgTbls" EntityType="Self.OrgTbl" />
+          <AssociationSet Name="FK_OrgChiefAdmin_IndvidualTbl" Association="Self.FK_OrgChiefAdmin_IndvidualTbl">
+            <End Role="IndvidualTbl" EntitySet="IndvidualTbls" />
+            <End Role="OrgChiefAdmin" EntitySet="OrgChiefAdmins" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MasterValue_MasterType" Association="Self.FK_MasterValue_MasterType">
+            <End Role="MasterType" EntitySet="MasterTypes" />
+            <End Role="MasterValue" EntitySet="MasterValues" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrgChiefAdmin_OrgTbl" Association="Self.FK_OrgChiefAdmin_OrgTbl">
+            <End Role="OrgTbl" EntitySet="OrgTbls" />
+            <End Role="OrgChiefAdmin" EntitySet="OrgChiefAdmins" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="SABenefitsModelStoreContainer" CdmEntityContainer="SABenefitsEntities">
+          <EntitySetMapping Name="Dependents">
+            <EntityTypeMapping TypeName="SABenefitsModel.Dependent">
+              <MappingFragment StoreEntitySet="Dependents">
+                <ScalarProperty Name="DepId" ColumnName="DepId" />
+                <ScalarProperty Name="CitizenType" ColumnName="CitizenType" />
+                <ScalarProperty Name="DetailId" ColumnName="DetailId" />
+                <ScalarProperty Name="MemberId" ColumnName="MemberId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="IndvidualTbls">
+            <EntityTypeMapping TypeName="SABenefitsModel.IndvidualTbl">
+              <MappingFragment StoreEntitySet="IndvidualTbl">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Fname" ColumnName="Fname" />
+                <ScalarProperty Name="LName" ColumnName="LName" />
+                <ScalarProperty Name="MName" ColumnName="MName" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="CountryOfBirth" ColumnName="CountryOfBirth" />
+                <ScalarProperty Name="DOB" ColumnName="DOB" />
+                <ScalarProperty Name="IDNumber" ColumnName="IDNumber" />
+                <ScalarProperty Name="PassportNumber" ColumnName="PassportNumber" />
+                <ScalarProperty Name="HomeTelNo" ColumnName="HomeTelNo" />
+                <ScalarProperty Name="WorkTelNo" ColumnName="WorkTelNo" />
+                <ScalarProperty Name="CellularNo" ColumnName="CellularNo" />
+                <ScalarProperty Name="PrimeryEmail" ColumnName="PrimeryEmail" />
+                <ScalarProperty Name="AlternativeEmail" ColumnName="AlternativeEmail" />
+                <ScalarProperty Name="FacebookId" ColumnName="FacebookId" />
+                <ScalarProperty Name="Twitter" ColumnName="Twitter" />
+                <ScalarProperty Name="ResidentialAdd" ColumnName="ResidentialAdd" />
+                <ScalarProperty Name="PostalAdd" ColumnName="PostalAdd" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MasterTypes">
+            <EntityTypeMapping TypeName="SABenefitsModel.MasterType">
+              <MappingFragment StoreEntitySet="MasterType">
+                <ScalarProperty Name="MatserTypeId" ColumnName="MatserTypeId" />
+                <ScalarProperty Name="MastrerTypeValue" ColumnName="MastrerTypeValue" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MasterValues">
+            <EntityTypeMapping TypeName="SABenefitsModel.MasterValue">
+              <MappingFragment StoreEntitySet="MasterValue">
+                <ScalarProperty Name="MasterValueId" ColumnName="MasterValueId" />
+                <ScalarProperty Name="Value" ColumnName="Value" />
+                <ScalarProperty Name="MasterTypeId" ColumnName="MasterTypeId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OrgChiefAdmins">
+            <EntityTypeMapping TypeName="SABenefitsModel.OrgChiefAdmin">
+              <MappingFragment StoreEntitySet="OrgChiefAdmin">
+                <ScalarProperty Name="ChiefId" ColumnName="ChiefId" />
+                <ScalarProperty Name="OrgId" ColumnName="OrgId" />
+                <ScalarProperty Name="OrgRole" ColumnName="OrgRole" />
+                <ScalarProperty Name="AppointmentDate" ColumnName="AppointmentDate" />
+                <ScalarProperty Name="TerminationDate" ColumnName="TerminationDate" />
+                <ScalarProperty Name="IndvDetailId" ColumnName="IndvDetailId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OrgTbls">
+            <EntityTypeMapping TypeName="SABenefitsModel.OrgTbl">
+              <MappingFragment StoreEntitySet="OrgTbl">
+                <ScalarProperty Name="OrgId" ColumnName="OrgId" />
+                <ScalarProperty Name="OrgName" ColumnName="OrgName" />
+                <ScalarProperty Name="OrgType" ColumnName="OrgType" />
+                <ScalarProperty Name="IsOrgType" ColumnName="IsOrgType" />
+                <ScalarProperty Name="IsOrgReg" ColumnName="IsOrgReg" />
+                <ScalarProperty Name="RegType" ColumnName="RegType" />
+                <ScalarProperty Name="RegNumber" ColumnName="RegNumber" />
+                <ScalarProperty Name="OrglegalName" ColumnName="OrglegalName" />
+                <ScalarProperty Name="EstablishedDate" ColumnName="EstablishedDate" />
+                <ScalarProperty Name="InactiveDate" ColumnName="InactiveDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

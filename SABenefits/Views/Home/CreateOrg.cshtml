@@ -1,0 +1,42 @@
+﻿
+@{
+    ViewBag.Title = "CreateOrg";
+}
+
+<h2>Create Orgnaization</h2>
+<ul class="nav nav-tabs">
+    <li class="active" id="l1"><a data-toggle="tab" href="#orgdetail">Org Details</a></li>
+    <li  id="l2"><a data-toggle="tab" href="#cheifdetail">Chief Details</a></li>
+    
+</ul>
+
+<div class="tab-content">
+    <div id="orgdetail" class="tab-pane fade in active">
+       @{Html.RenderPartial("_CreateOrg");}
+    </div>
+    <div id="cheifdetail" class="tab-pane fade">
+    
+    </div>
+    
+</div>
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        
+        $("#l2").attr("disabled", "dsiabled");
+    });
+    function LoadNext() {
+
+        $("#l1").removeClass("active");
+        $("#l2").addClass("active");
+        $("#cheifdetail").addClass("in active");
+        $("#orgdetail").removeClass("in active");
+
+    }
+
+    function OrgSubmmit() {
+        alert("Your orgnaization has been registered successfully! Please check your email for login details. ")
+    }
+
+</script>

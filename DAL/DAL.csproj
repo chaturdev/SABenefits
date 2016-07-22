@@ -1,0 +1,142 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{D54C3DE0-EBC6-49C9-8F64-913DF2CA6FE7}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>DAL</RootNamespace>
+    <AssemblyName>DAL</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="BenefitModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>BenefitModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BenefitModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>BenefitModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BenefitModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>BenefitModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Concret\DashboardDal.cs" />
+    <Compile Include="Concret\MasterValueDAL.cs" />
+    <Compile Include="Concret\OrgDAL.cs" />
+    <Compile Include="Dependent.cs">
+      <DependentUpon>BenefitModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="IndvidualTbl.cs">
+      <DependentUpon>BenefitModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Interface\IDashboardDAL.cs" />
+    <Compile Include="Interface\IMasterValueDAL.cs" />
+    <Compile Include="Interface\IMemberDAL.cs" />
+    <Compile Include="Interface\IOrgDAL.cs" />
+    <Compile Include="MasterType.cs">
+      <DependentUpon>BenefitModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="MasterValue.cs">
+      <DependentUpon>BenefitModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="OrgChiefAdmin.cs">
+      <DependentUpon>BenefitModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="OrgTbl.cs">
+      <DependentUpon>BenefitModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="sp_MemberOrgLinkCount11_Result.cs">
+      <DependentUpon>BenefitModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_MemberOrgLinkCount_Result.cs">
+      <DependentUpon>BenefitModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_selectMasterValues_Result.cs">
+      <DependentUpon>BenefitModel.tt</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <EntityDeploy Include="BenefitModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>BenefitModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="BenefitModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>BenefitModel.edmx</DependentUpon>
+      <LastGenOutput>BenefitModel.Context.cs</LastGenOutput>
+    </None>
+    <None Include="BenefitModel.edmx.diagram">
+      <DependentUpon>BenefitModel.edmx</DependentUpon>
+    </None>
+    <None Include="BenefitModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>BenefitModel.edmx</DependentUpon>
+      <LastGenOutput>BenefitModel.cs</LastGenOutput>
+    </None>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Domain\Domain.csproj">
+      <Project>{58d1d3a6-2991-45f0-a1fd-bd014f409a7e}</Project>
+      <Name>Domain</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
